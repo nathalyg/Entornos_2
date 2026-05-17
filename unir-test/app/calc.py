@@ -11,12 +11,9 @@ class Calculator:
         self.check_types(x, y)
         return x + y
 
-    def subtract(self, x, y):
+    def substract(self, x, y):
         self.check_types(x, y)
         return x - y
-
-    def substract(self, x, y):
-        return self.subtract(x, y)
 
     def multiply(self, x, y):
         if not app.util.validate_permissions(f"{x} * {y}", "user1"):
