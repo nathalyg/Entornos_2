@@ -63,104 +63,52 @@ Pasos realizados para analizar y resolver:
 
 ## 5) Como ejecutar pruebas y generar XML
 
-### Requisito previo (solo la primera vez)
+Las ejecuciones se realizaron en Ubuntu usando Docker y Makefile.
 
-Ejecuta estos comandos desde `C:\Maestria\Entornos\Actividad2`:
+### 5.1 Preparacion comun
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install pytest flask
+```bash
+cd /home/ubuntu/Entornos_2/unir-test
+mkdir -p results
 ```
 
-Si ya tienes `.venv`, solo activa:
+### 5.2 Ejecutar pruebas unitarias y generar XML/HTML
 
-```powershell
-.\.venv\Scripts\Activate.ps1
+```bash
+sudo make test-unit
 ```
 
-### 5.1 Preparacion comun para todas las pruebas
+Archivos generados:
 
-```powershell
-Set-Location C:\Maestria\Entornos\Actividad2\unir-test
-New-Item -ItemType Directory -Force -Path results | Out-Null
-$env:PYTHONPATH='.'
+- `results/unit_result.xml`
+- `results/unit_result.html`
+- `results/coverage.xml`
+- `results/coverage/`
+
+### 5.3 Ejecutar pruebas API y generar XML/HTML
+
+```bash
+sudo make test-api
 ```
 
-### 5.2 Ejecutar pruebas unitarias y generar XML
+Archivos generados:
+
+- `results/api_result.xml`
+- `results/api_result.html`
+
+### 5.4 Descargar resultados a local (Windows)
 
 ```powershell
-python -m pytest -m unit --junit-xml=results/unit_result.xml --ignore=test/sec/owasp_zap_test.py
+scp -i "C:\Maestria\Entornos\test-packer-key.pem" -P 2222 -r ubuntu@ec2-98-93-254-223.compute-1.amazonaws.com:/home/ubuntu/Entornos_2/unir-test/results "C:\Maestria\Entornos\Entornos_2\unir-test"
 ```
 
-Validar que se genero el XML:
+## 6) Resultados obtenidos
 
-```powershell
-Get-Item .\results\unit_result.xml
-Get-Content .\results\unit_result.xml -TotalCount 20
-```
+- Unitarias: `19 passed, 15 deselected`.
+- API: `14 passed, 20 deselected`.
+- En ambos casos se generaron reportes XML/HTML sin fallos ni errores.
 
-### 5.3 Levantar API para pruebas REST
-
-Abre una terminal nueva y ejecuta:
-
-```powershell
-Set-Location C:\Maestria\Entornos\Actividad2\unir-test
-.\.venv\Scripts\Activate.ps1
-$env:PYTHONPATH='.'
-$env:FLASK_APP='app/api.py'
-python -m flask run --host=127.0.0.1 --port=5000
-```
-
-Prueba rapida manual (opcional, en otra terminal):
-
-```powershell
-Invoke-WebRequest -Uri http://127.0.0.1:5000/calc/add/2/2 | Select-Object -ExpandProperty Content
-```
-
-### 5.4 Ejecutar pruebas API y generar XML
-
-En otra terminal distinta a la que levanto Flask:
-
-```powershell
-Set-Location C:\Maestria\Entornos\Actividad2\unir-test
-.\.venv\Scripts\Activate.ps1
-$env:PYTHONPATH='.'
-$env:BASE_URL='http://127.0.0.1:5000'
-python -m pytest -m api --junit-xml=results/api_result.xml --ignore=test/sec/owasp_zap_test.py
-```
-
-Validar que se genero el XML:
-
-```powershell
-Get-Item .\results\api_result.xml
-Get-Content .\results\api_result.xml -TotalCount 20
-```
-
-### 5.5 Cerrar servidor API
-
-En la terminal donde corre Flask, presiona:
-
-```powershell
-Ctrl + C
-```
-
-### 5.6 Comando rapido (resumen)
-
-Si ya tienes entorno y dependencias, este bloque te ejecuta todo lo unitario en una sola pasada:
-
-```powershell
-Set-Location C:\Maestria\Entornos\Actividad2\unir-test
-.\.venv\Scripts\Activate.ps1
-New-Item -ItemType Directory -Force -Path results | Out-Null
-$env:PYTHONPATH='.'
-python -m pytest -m unit --junit-xml=results/unit_result.xml --ignore=test/sec/owasp_zap_test.py
-```
-
-Para API, recuerda que siempre necesitas Flask levantado en paralelo para que los tests REST pasen.
-
-## 6) Checklist para cumplir la rubrica
+## 7) Checklist para cumplir la rubrica
 
 - Criterio 1 (30%):
 	- `Calculator` tiene todas las operaciones solicitadas.
@@ -174,7 +122,7 @@ Para API, recuerda que siempre necesitas Flask levantado en paralelo para que lo
 	- Cada operacion tiene casos de exito y de error.
 	- API devuelve 400 en entradas invalidas.
 
-## 7) Entrega final recomendada
+## 8) Entrega final recomendada
 
 Incluye en la entrega:
 
