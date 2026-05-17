@@ -75,3 +75,19 @@ class TestApi(unittest.TestCase):
     def test_api_log10_zero_returns_bad_request(self):
         response = self.get_error_response("/calc/log10/0")
         self.assertEqual(response.status, http.client.BAD_REQUEST)
+
+    def test_api_add_invalid_parameter_returns_bad_request(self):
+        response = self.get_error_response("/calc/add/a/2")
+        self.assertEqual(response.status, http.client.BAD_REQUEST)
+
+    def test_api_substract_invalid_parameter_returns_bad_request(self):
+        response = self.get_error_response("/calc/substract/a/2")
+        self.assertEqual(response.status, http.client.BAD_REQUEST)
+
+    def test_api_multiply_invalid_parameter_returns_bad_request(self):
+        response = self.get_error_response("/calc/multiply/a/2")
+        self.assertEqual(response.status, http.client.BAD_REQUEST)
+
+    def test_api_power_invalid_parameter_returns_bad_request(self):
+        response = self.get_error_response("/calc/power/a/2")
+        self.assertEqual(response.status, http.client.BAD_REQUEST)

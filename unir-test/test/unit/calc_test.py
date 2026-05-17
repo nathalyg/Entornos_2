@@ -72,6 +72,17 @@ class TestCalculate(unittest.TestCase):
         self.assertRaises(TypeError, self.calc.log10, -1)
         self.assertRaises(TypeError, self.calc.log10, "100")
 
+    def test_check_number_static_method_fails_with_invalid_parameter(self):
+        self.assertRaises(TypeError, Calculator.check_number, "2")
+        self.assertRaises(TypeError, Calculator.check_number, None)
+        self.assertRaises(TypeError, Calculator.check_number, object())
+
+    def test_check_types_method_fails_with_invalid_parameter(self):
+        self.assertRaises(TypeError, self.calc.check_types, "2", 2)
+        self.assertRaises(TypeError, self.calc.check_types, 2, "2")
+        self.assertRaises(TypeError, self.calc.check_types, None, 2)
+        self.assertRaises(TypeError, self.calc.check_types, 2, None)
+
     def test_divide_method_fails_with_division_by_zero(self):
         self.assertRaises(TypeError, self.calc.divide, 2, 0)
         self.assertRaises(TypeError, self.calc.divide, 2, -0)
