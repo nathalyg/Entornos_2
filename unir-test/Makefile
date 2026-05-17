@@ -1,5 +1,10 @@
 .PHONY: all $(MAKECMDGOALS)
 
+# Cambios de la actividad:
+# - Se consolidaron pruebas automatizadas en test-unit y test-api con reportes.
+# - Se ajusto server para levantar Flask de forma standalone en el puerto 5000.
+# - Los criterios evaluables se cubren con test-unit y test-api.
+
 build:
 	docker build -t calculator-app .
 

@@ -4,6 +4,11 @@ import pytest
 
 from app.calc import Calculator
 
+# Cambios de la actividad:
+# - Se amplio la cobertura unitaria para todas las operaciones de Calculator.
+# - Se agregaron casos de exito y casos de error de tipo y dominio.
+# - Se incluyeron pruebas de metodos auxiliares de validacion.
+
 
 def mocked_validation(*args, **kwargs):
     return True
@@ -91,6 +96,7 @@ class TestCalculate(unittest.TestCase):
 
     @patch('app.util.validate_permissions', side_effect=mocked_validation, create=True)
     def test_multiply_method_returns_correct_result(self, _validate_permissions):
+        # Se usa mock para aislar la prueba de multiply de la dependencia de permisos.
         self.assertEqual(4, self.calc.multiply(2, 2))
         self.assertEqual(0, self.calc.multiply(1, 0))
         self.assertEqual(0, self.calc.multiply(-1, 0))

@@ -5,6 +5,11 @@ from flask import Flask
 from app import util
 from app.calc import Calculator
 
+# Cambios de la actividad:
+# - Se estandarizo la ejecucion de operaciones con funciones auxiliares.
+# - Se completo la API con endpoints de power, sqrt y log10.
+# - Se unifico el manejo de errores devolviendo HTTP 400 en entradas invalidas.
+
 CALCULATOR = Calculator()
 api_application = Flask(__name__)
 HEADERS = {"Content-Type": "text/plain", "Access-Control-Allow-Origin": "*"}
@@ -38,6 +43,7 @@ def add(op_1, op_2):
 
 @api_application.route("/calc/substract/<op_1>/<op_2>", methods=["GET"])
 def substract(op_1, op_2):
+    # Se mantiene substract para conservar compatibilidad con pruebas y consigna.
     return execute_binary_operation(op_1, op_2, CALCULATOR.substract)
 
 

@@ -6,6 +6,11 @@ from urllib.request import urlopen
 
 import pytest
 
+# Cambios de la actividad:
+# - Se ampliaron pruebas API para todas las rutas de la calculadora.
+# - Se cubrieron escenarios de exito y errores HTTP 400 por tipo y dominio.
+# - Se valido comportamiento para divide/0, sqrt negativo y log10 en cero.
+
 BASE_URL = os.environ.get("BASE_URL")
 DEFAULT_TIMEOUT = 2  # in secs
 

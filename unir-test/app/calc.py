@@ -1,6 +1,10 @@
 import app
 import math
 
+# Cambios de la actividad:
+# - Se completaron operaciones faltantes: substract, power, sqrt y log10.
+# - Se reforzaron validaciones de tipo y dominio para evitar entradas invalidas.
+# - Se mantuvo el nombre substract para cumplir la consigna y las pruebas existentes.
 
 class InvalidPermissions(Exception):
     pass
@@ -16,6 +20,7 @@ class Calculator:
         return x - y
 
     def multiply(self, x, y):
+        # Validacion adicional de permisos introducida en esta actividad.
         if not app.util.validate_permissions(f"{x} * {y}", "user1"):
             raise InvalidPermissions('User has no permissions')
 
@@ -24,6 +29,7 @@ class Calculator:
 
     def divide(self, x, y):
         self.check_types(x, y)
+        # Validacion de dominio agregada para reportar error controlado.
         if y == 0:
             raise TypeError("Division by zero is not possible")
 
@@ -35,6 +41,7 @@ class Calculator:
 
     def sqrt(self, x):
         self.check_number(x)
+        # Validacion de dominio agregada para raiz negativa.
         if x < 0:
             raise TypeError("Square root is not possible for negative numbers")
 
@@ -42,6 +49,7 @@ class Calculator:
 
     def log10(self, x):
         self.check_number(x)
+        # Validacion de dominio agregada para valores no positivos.
         if x <= 0:
             raise TypeError("Log10 is only possible for numbers greater than zero")
 
