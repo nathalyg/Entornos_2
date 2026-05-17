@@ -2,6 +2,42 @@
 
 Este proyecto implementa una calculadora con API REST y una bateria de pruebas automatizadas.
 
+## Estructura de archivos modificados
+
+- unir-test/
+  - Makefile
+  - app/
+    - api.py
+    - calc.py
+  - test/
+    - rest/
+      - api_test.py
+    - unit/
+      - calc_test.py
+
+unir-test/
+│
+├── Makefile
+│
+├── app/
+│   ├── api.py
+│   └── calc.py
+│
+├── test/
+│   ├── rest/
+│   │   └── api_test.py
+│   │
+│   └── unit/
+│       └── calc_test.py
+│
+├── results/
+    ├── api_result.xml
+    ├── unit_result.xml
+    ├── api_result.html
+    ├── unit_result.html
+    └── coverage.xml
+
+
 ## 1) Que se amplio en esta actividad
 
 Se completaron las funcionalidades pedidas en la consigna:

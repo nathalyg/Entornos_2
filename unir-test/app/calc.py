@@ -20,7 +20,7 @@ class Calculator:
         return x - y
 
     def multiply(self, x, y):
-        # Validacion adicional de permisos introducida en esta actividad.
+        # Validacion complementaria de permisos adicionados en esta actividad.
         if not app.util.validate_permissions(f"{x} * {y}", "user1"):
             raise InvalidPermissions('User has no permissions')
 
